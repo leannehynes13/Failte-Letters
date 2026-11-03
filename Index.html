@@ -1,0 +1,234 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fáilte Letters – A Place for You</title>
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: #21190f;
+  color: #49351f;
+  font-family: Georgia, serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 30px 15px;
+}
+
+.book {
+  width: min(950px, 96vw);
+  min-height: 580px;
+  position: relative;
+  perspective: 1800px;
+}
+
+.cover {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 50% 40%, #76502b, #382315 75%);
+  border: 9px solid #24170e;
+  border-radius: 8px 16px 16px 8px;
+  box-shadow: 12px 18px 40px #080604;
+  color: #dfbd7c;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 1.3s ease;
+  transform-origin: left center;
+  z-index: 3;
+  padding: 30px;
+}
+
+.cover::before {
+  content: "";
+  position: absolute;
+  inset: 14px;
+  border: 1px solid #b38a50;
+  outline: 1px solid #b38a50;
+  outline-offset: 5px;
+  pointer-events: none;
+}
+
+.cover.open {
+  transform: rotateY(-115deg);
+  pointer-events: none;
+}
+
+.cover h1 {
+  font-size: clamp(42px, 7vw, 76px);
+  font-weight: normal;
+  letter-spacing: 7px;
+  margin: 15px 0;
+}
+
+.cover p {
+  font-size: 17px;
+  letter-spacing: 3px;
+  line-height: 1.8;
+}
+
+.clover {
+  font-size: 45px;
+  margin: 20px;
+}
+
+.open-prompt {
+  position: absolute;
+  bottom: 35px;
+  font-size: 17px;
+  letter-spacing: 1px;
+  animation: glow 2s infinite alternate;
+}
+
+@keyframes glow {
+  from { opacity: .55; }
+  to { opacity: 1; }
+}
+
+.inside {
+  background: #c5a575;
+  padding: 18px;
+  min-height: 580px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5px;
+  box-shadow: 0 15px 40px #080604;
+}
+
+.page {
+  background:
+    linear-gradient(90deg, #e6d5b5, #f4e8cf 15%, #ead9b8);
+  padding: 35px 25px;
+  min-height: 540px;
+  text-align: center;
+  box-shadow: inset 0 0 20px #b69a70;
+}
+
+.page h2 {
+  font-weight: normal;
+  font-size: 25px;
+  letter-spacing: 2px;
+}
+
+.page p {
+  line-height: 1.7;
+}
+
+.map {
+  font-size: 105px;
+  margin: 45px 0 15px;
+}
+
+.counties {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 30px;
+}
+
+.counties button {
+  background: #f1e4cb;
+  border: 1px solid #b89b6d;
+  padding: 13px 5px;
+  font-family: Georgia, serif;
+  color: #49351f;
+  cursor: pointer;
+}
+
+.counties button:hover {
+  background: #d9c39b;
+}
+
+#message {
+  margin-top: 30px;
+  font-style: italic;
+}
+
+.back {
+  margin-top: 25px;
+  background: none;
+  border: none;
+  color: #76502b;
+  text-decoration: underline;
+  cursor: pointer;
+  font-family: Georgia, serif;
+}
+
+@media(max-width:600px) {
+  .book { min-height: 650px; }
+  .inside {
+    grid-template-columns: 1fr;
+  }
+  .page { min-height: 280px; }
+  .cover { padding: 20px; }
+}
+</style>
+</head>
+
+<body>
+
+<div class="book">
+
+  <div class="inside">
+    <section class="page">
+      <h2>WELCOME TO IRELAND</h2>
+      <p>A collection of letters from across Ireland.</p>
+      <div class="map">☘</div>
+      <p>Every letter. Every county. Every voice matters.</p>
+    </section>
+
+    <section class="page">
+      <h2>DISCOVER THE LETTERS</h2>
+      <p>Choose a county to begin exploring.</p>
+
+      <div class="counties">
+        <button onclick="choose('Dublin')">Dublin</button>
+        <button onclick="choose('Galway')">Galway</button>
+        <button onclick="choose('Mayo')">Mayo</button>
+        <button onclick="choose('Cork')">Cork</button>
+        <button onclick="choose('Kerry')">Kerry</button>
+        <button onclick="choose('Donegal')">Donegal</button>
+      </div>
+
+      <p id="message">Your next letter is waiting.</p>
+      <button class="back" onclick="closeBook()">Close the book</button>
+    </section>
+  </div>
+
+  <div class="cover" id="cover" onclick="openBook()">
+    <div class="clover">☘</div>
+    <h1>FÁILTE<br>LETTERS</h1>
+    <p>LETTERS OF WELCOME<br>FROM ACROSS IRELAND</p>
+    <div class="clover">✧</div>
+    <div class="open-prompt">Click the book to begin</div>
+  </div>
+
+</div>
+
+<script>
+function openBook() {
+  document.getElementById("cover").classList.add("open");
+}
+
+function closeBook() {
+  document.getElementById("cover").classList.remove("open");
+}
+
+function choose(county) {
+  document.getElementById("message").textContent =
+    "You have chosen " + county + ". Letters from this county will appear here.";
+}
+</script>
+
+</body>
+</html>
