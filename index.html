@@ -5,68 +5,58 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Fáilte Letters</title>
-
     <link rel="stylesheet" href="css/style.css">
-
 </head>
 
 <body>
 
-    <main class="desk-scene">
+<main class="desk-scene">
 
-        <!-- Landing page desk background -->
-        <img
-            src="images/desk-background.png"
-            class="desk-background"
-            alt="A desk with The Fáilte Letters resting upon it"
+    <img
+        src="images/desk-background.png"
+        class="desk-background"
+        alt="The Fáilte Letters resting on a desk"
+    >
+
+    <div class="book-shell" id="bookShell">
+
+        <button
+            type="button"
+            class="cover"
+            id="cover"
+            onclick="openBook()"
+            aria-label="Open The Fáilte Letters"
         >
+            <span>✧ Open me ✧</span>
+        </button>
 
-        <!-- Interactive book -->
-        <div class="book-shell" id="bookShell">
+        <section class="inside" id="inside">
 
-            <!-- Open book image -->
-            <div class="inside" id="inside">
+            <img
+                src="images/open-book.png"
+                class="open-book-image"
+                alt="The open pages of The Fáilte Letters"
+            >
 
-                <img
-                    src="images/open-book.png"
-                    class="open-book-image"
-                    alt="The open pages of The Fáilte Letters"
-                >
+            <div class="archive-content">
 
-                <!-- Interactive archive content -->
-                <div class="archive-content">
+                <div class="left-page">
+                    <div class="page-inner" id="leftContent"></div>
+                </div>
 
-                    <div class="left-page">
-                        <div class="page-inner" id="leftContent">
-                        </div>
-                    </div>
-
-                    <div class="right-page">
-                        <div class="page-inner" id="rightContent">
-                        </div>
-                    </div>
-
+                <div class="right-page">
+                    <div class="page-inner" id="rightContent"></div>
                 </div>
 
             </div>
 
-            <!-- Clickable book cover / Open me -->
-            <button
-                type="button"
-                class="cover"
-                id="openBookButton"
-                onclick="openBook()"
-                aria-label="Open The Fáilte Letters"
-            >
-                <span>Open me</span>
-            </button>
+        </section>
 
-        </div>
+    </div>
 
-    </main>
+</main>
 
-    <!-- Archive functionality -->
-    <script src="js/archive.js" defer></script>
+<script src="js/archive.js"></script>
 
 </body>
 </html>
