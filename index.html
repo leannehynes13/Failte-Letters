@@ -1,35 +1,82 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#21180f">
+
     <title>The Fáilte Letters — Letters from Ireland</title>
-        <link rel="stylesheet" href="css/style.css">
+
+    <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
-    <div class="desk-scene" aria-label="An antique writing desk with The Fáilte Letters book">
+
+    <div class="desk-scene">
+
+        <!-- Landing page desk background -->
+        <img
+            src="images/desk-background.png"
+            class="desk-background"
+            alt="The Fáilte Letters resting on an antique writing desk"
+        >
+
         <main class="stage">
+
             <div class="book-shell">
-                <div class="inside" aria-live="polite">
-                    <section class="page left-page">
-                        <div class="page-inner" id="leftContent"></div>
-                        <div class="page-footer" id="leftFooter">1</div>
-                    </section>
-                    <section class="page right-page">
-                        <div class="page-inner" id="rightContent"></div>
-                        <div class="page-footer" id="rightFooter">2</div>
-                    </section>
-                    <nav class="bookmark-tabs" aria-label="Book navigation">
-                        <button class="tab" onclick="showHome()">All Counties</button>
-                        <button class="tab" onclick="showAbout()">About This Archive</button>
-                    </nav>
+
+                <!-- Open book artwork -->
+                <div class="inside" id="inside">
+
+                    <img
+                        src="images/open-book.png"
+                        class="open-book-art"
+                        alt="The open pages of The Fáilte Letters"
+                    >
+
+                    <!-- Interactive archive content -->
+                    <div class="archive-content">
+
+                        <section class="page left-page">
+                            <div class="page-inner" id="leftContent"></div>
+                            <div class="page-footer" id="leftFooter">1</div>
+                        </section>
+
+                        <section class="page right-page">
+                            <div class="page-inner" id="rightContent"></div>
+                            <div class="page-footer" id="rightFooter">2</div>
+                        </section>
+
+                        <nav class="bookmark-tabs" aria-label="Book navigation">
+                            <button class="tab" onclick="showHome()">
+                                All Counties
+                            </button>
+
+                            <button class="tab" onclick="showAbout()">
+                                About This Archive
+                            </button>
+                        </nav>
+
+                    </div>
                 </div>
-                <button class="cover" id="cover" onclick="openBook()" aria-label="Open The Fáilte Letters book" title="Open me"></button>
+
+                <!-- Invisible clickable book cover -->
+                <button
+                    class="cover"
+                    id="cover"
+                    onclick="openBook()"
+                    aria-label="Open The Fáilte Letters"
+                    title="Open me">
+                </button>
+
             </div>
+
         </main>
+
     </div>
 
-        <script src="js/archive.js" defer></script>
+    <script src="js/archive.js" defer></script>
+
 </body>
 </html>
