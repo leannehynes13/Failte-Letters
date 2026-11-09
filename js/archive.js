@@ -1,8 +1,8 @@
 
-/* =========================================
+/* ==========================================
    THE FÁILTE LETTERS
-   Interactive letter archive
-========================================= */
+   INTERACTIVE BOOK ARCHIVE
+   ========================================== */
 
 const counties = [
     "Antrim", "Armagh", "Carlow", "Cavan",
@@ -17,356 +17,480 @@ const counties = [
 
 const categories = [
     {
-        id: "home",
+        icon: "◉",
         title: "If you've left home behind",
-        description: "Letters for anyone missing home, carrying memories or finding their feet somewhere new."
+        desc: "Letters acknowledging the courage it takes to build a life somewhere new."
     },
     {
-        id: "welcome",
+        icon: "♥",
         title: "If someone has made you feel unwelcome",
-        description: "Letters of kindness, solidarity and reassurance for anyone who has felt they don't belong."
+        desc: "Messages of solidarity, kindness and understanding."
     },
     {
-        id: "hope",
+        icon: "☼",
         title: "If you need hope today",
-        description: "A collection of encouragement, optimism and reminders that difficult days can pass."
+        desc: "Sometimes people don't need advice. They just need hope."
     },
     {
-        id: "friend",
+        icon: "☕",
         title: "If you'd like a friend",
-        description: "Letters from people across Ireland offering friendship, connection and a listening ear."
+        desc: "People sharing what they'd say if they met you over a cup of tea."
     }
 ];
 
-/* DEMONSTRATION LETTERS
-   Replace these with approved contributions.
-*/
+/* SAMPLE LETTERS */
 
-const letters = [
-    {
-        title: "A little reminder",
-        author: "A friend in Ireland",
-        county: "Galway",
-        category: "hope",
-        body: "Wherever you have come from, and wherever you are going, remember that you deserve kindness. You deserve to feel safe, valued and welcome. There are people here who want to see you thrive."
-    },
-    {
-        title: "You are not alone",
-        author: "Someone who cares",
-        county: "Dublin",
-        category: "welcome",
-        body: "Sometimes a new place can feel unfamiliar and overwhelming. I hope you meet people who make you feel at home. Please remember that your presence matters."
-    },
-    {
-        title: "Home travels with you",
-        author: "A friend",
-        county: "Cork",
-        category: "home",
-        body: "You can miss the place you came from and still build a beautiful life somewhere new. You do not have to leave your memories behind to find a new home."
-    },
-    {
-        title: "A new friendship",
-        author: "A neighbour",
-        county: "Mayo",
-        category: "friend",
-        body: "If you ever feel like the world is a little too quiet, I hope someone reaches out. A conversation, a cup of tea or a simple hello can make all the difference."
-    }
-];
+const sampleLetters = {
 
-/* ARCHIVE STATE */
+    "If you've left home behind": [
+        {
+            title: "A note for a new beginning",
+            from: "A reader in Galway",
+            body: "Leaving somewhere familiar takes courage. There is so much you carry with you: the language, the food, the people and the memories that made you who you are.\n\nI hope that, with time, this place becomes somewhere you can make new memories too. You do not have to leave one home behind to make room for another.\n\nThere is room for you here.",
+            sign: "With warmth, someone in Ireland"
+        },
+        {
+            title: "You can belong in more than one place",
+            from: "A reader in Cork",
+            body: "You can miss home and still be happy here. You can feel grateful and lonely at the same time. None of those feelings cancel the others out.\n\nI hope you find people who make ordinary days feel a little easier.",
+            sign: "A friend you haven't met yet"
+        }
+    ],
 
-let selectedCounty = "All counties";
-let selectedCategory = "all";
-let currentLetter = null;
+    "If someone has made you feel unwelcome": [
+        {
+            title: "You deserve kindness",
+            from: "A reader in Dublin",
+            body: "I am sorry if somebody has made you feel that you do not belong. Their actions do not define your worth, and they do not speak for everyone.\n\nYou deserve to feel safe, respected and welcome in the places where you live, work and spend your days.",
+            sign: "With solidarity"
+        },
+        {
+            title: "There is room for everyone",
+            from: "A reader in Mayo",
+            body: "A place becomes better when people look after one another. I hope you meet many people who show you that through small, everyday acts of kindness.",
+            sign: "Someone wishing you well"
+        }
+    ],
 
-/* OPEN AND CLOSE BOOK */
+    "If you need hope today": [
+        {
+            title: "One day at a time",
+            from: "A reader in Waterford",
+            body: "You do not have to figure everything out today. Take the small good moments when they come. A friendly face, a warm cup of tea, a place to rest.\n\nI hope tomorrow is gentler.",
+            sign: "Thinking of you"
+        }
+    ],
+
+    "If you'd like a friend": [
+        {
+            title: "Tea is always a good start",
+            from: "A reader in Limerick",
+            body: "If we met, I would put the kettle on. We could talk about where you have been, what you miss, what makes you laugh, or absolutely nothing at all.\n\nYou are welcome at the table.",
+            sign: "A friend in Ireland"
+        }
+    ]
+};
+
+let selectedCounty = "Mayo";
+let currentCategory = "";
+
+/* OPEN THE BOOK */
 
 function openBook() {
-    const book = document.querySelector(".book-shell");
 
-    if (!book) return;
+    const cover = document.getElementById("cover");
+    const inside = document.getElementById("inside");
 
-    book.classList.add("is-open");
+    if (!cover || !inside) {
+        console.error("The book elements could not be found.");
+        return;
+    }
 
-    showHome();
-}
-
-/* RETURN TO HOME */
-
-function showHome() {
-    currentLetter = null;
-    selectedCounty = "All counties";
-    selectedCategory = "all";
+    cover.classList.add("open");
+    inside.classList.add("archive-open");
 
     renderHome();
 }
 
-/* ABOUT THE ARCHIVE */
+/* IRELAND MAP */
 
-function showAbout() {
-    currentLetter = null;
+function mapSVG() {
 
-    const left = document.getElementById("leftContent");
-    const right = document.getElementById("rightContent");
+    return `
+    <svg class="ireland-map"
+         viewBox="0 0 300 330"
+         role="img"
+         aria-label="Illustrated map of Ireland">
 
-    left.innerHTML = `
-        <h1>About the archive</h1>
+        <defs>
+            <linearGradient id="land" x1="0" y1="0" x2="1" y2="1">
+                <stop stop-color="#a9a879"/>
+                <stop offset="1" stop-color="#687653"/>
+            </linearGradient>
+        </defs>
 
-        <p>
-            The Fáilte Letters is a growing collection of letters
-            from people connected to Ireland, written for those
-            who have arrived here, are finding their feet or
-            simply need a little kindness.
-        </p>
+        <path
+            d="M155 12 L181 23 190 43 215 48 224 67 244 78
+            239 98 256 116 244 136 250 154 233 169 239 190
+            220 207 218 228 201 239 198 260 180 273 166 297
+            143 307 127 292 108 293 97 275 78 268 72 247
+            52 234 59 215 42 199 53 181 42 165 57 149
+            49 130 65 116 68 95 85 85 91 63 111 53
+            116 34 138 29 Z"
+            fill="url(#land)"
+            stroke="#526344"
+            stroke-width="3"
+        />
 
-        <p>
-            Every letter is an invitation to feel welcome,
-            valued and part of a community.
-        </p>
-    `;
+        <path
+            d="M92 80 L135 95 178 87 222 103
+            M65 150 L111 157 151 145 203 157 243 148
+            M54 201 L104 196 148 208 215 198
+            M78 251 L125 239 179 255"
+            fill="none"
+            stroke="#e1d2ad"
+            stroke-width="1.5"
+        />
 
-    right.innerHTML = `
-        <h2>A place for everyone</h2>
+        <g fill="#f1e5c8"
+           font-family="Georgia, serif"
+           font-size="9"
+           text-anchor="middle">
 
-        <p>
-            This archive celebrates the kindness that can exist
-            between strangers and the connections that make
-            a place feel like home.
-        </p>
+            <text x="155" y="62">ULSTER</text>
+            <text x="146" y="139">CONNACHT</text>
+            <text x="153" y="196">LEINSTER</text>
+            <text x="122" y="260">MUNSTER</text>
 
-        <p>
-            Letters are personally curated for this collection.
-            Each contribution helps create a lasting record
-            of welcome and belonging in Ireland.
-        </p>
+        </g>
 
-        <button class="archive-button" onclick="showHome()">
-            Return to the archive
-        </button>
+        <circle
+            cx="188"
+            cy="181"
+            r="4"
+            fill="#d9b66f"
+            stroke="#fff1ce"
+            stroke-width="1.5"
+        />
+
+    </svg>
     `;
 }
 
-/* MAIN ARCHIVE PAGE */
+/* UPDATE THE TWO BOOK PAGES */
+
+function setPages(left, right) {
+
+    const leftPage = document.getElementById("leftContent");
+    const rightPage = document.getElementById("rightContent");
+
+    if (!leftPage || !rightPage) {
+        console.error("The book pages could not be found.");
+        return;
+    }
+
+    leftPage.innerHTML = left;
+    rightPage.innerHTML = right;
+}
+
+/* MAIN ARCHIVE HOME */
 
 function renderHome() {
 
-    const left = document.getElementById("leftContent");
-    const right = document.getElementById("rightContent");
+    currentCategory = "";
 
-    if (!left || !right) return;
+    const left = `
+        <div class="eyebrow">A collection of voices</div>
 
-    left.innerHTML = `
-        <h1>The Fáilte Letters</h1>
+        <h2>Where in Ireland?</h2>
 
-        <p><em>Letters from Ireland, for everyone.</em></p>
-
-        <p>
-            A collection of words, stories and messages
-            written to remind you that you belong.
+        <p class="page-intro">
+            Choose a county to discover letters from people
+            connected to that part of Ireland.
         </p>
 
-        <h2>Explore Ireland</h2>
+        <div class="ornament">❧ ✧ ❧</div>
 
-        <p>
-            Discover letters from across the island.
-            Select a county to explore its contributions.
+        <div class="map-wrap">
+            ${mapSVG()}
+        </div>
+
+        <p class="map-caption">
+            Every letter. Every county. Every voice matters.
         </p>
 
-        <select class="county-select"
-            id="countySelect"
-            onchange="selectCounty(this.value)">
-
-            <option value="All counties">All counties</option>
+        <div class="county-grid">
 
             ${counties.map(county => `
-                <option value="${county}"
-                    ${selectedCounty === county ? "selected" : ""}>
+                <button
+                    class="${county === selectedCounty ? "active" : ""}"
+                    onclick="selectCounty('${county}')">
                     ${county}
-                </option>
+                </button>
             `).join("")}
 
-        </select>
-
-        <p class="letter-meta">
-            A living collection of letters and kindness.
-        </p>
+        </div>
     `;
 
-    right.innerHTML = `
-        <h2>Find a letter</h2>
+    const right = `
+        <div class="eyebrow">County ${selectedCounty}</div>
 
-        <p>What would you like to read today?</p>
+        <h2>Letters from ${selectedCounty}</h2>
+
+        <p class="page-intro">
+            Choose a page that speaks to you.
+            There is no right place to begin.
+        </p>
+
+        <div class="ornament">✧</div>
 
         <div class="category-list">
 
             ${categories.map(category => `
                 <button
-                    class="category-button ${selectedCategory === category.id ? "active" : ""}"
-                    onclick="selectCategory('${category.id}')">
+                    class="category-card"
+                    onclick="showCategory('${category.title}')">
 
-                    ${category.title}
+                    <span class="category-icon">
+                        ${category.icon}
+                    </span>
+
+                    <span>
+                        <strong>${category.title}</strong>
+                        <small>${category.desc}</small>
+                    </span>
+
+                    <span class="chevron">›</span>
 
                 </button>
             `).join("")}
 
-            <button
-                class="category-button ${selectedCategory === "all" ? "active" : ""}"
-                onclick="selectCategory('all')">
-
-                All letters
-
-            </button>
-
         </div>
 
-        <div id="letterResults"></div>
+        <p class="notice">
+            This archive is being built with care.
+            The sample letters shown here are illustrative,
+            not real submissions.
+        </p>
     `;
 
-    renderLetters();
+    setPages(left, right);
 }
 
-/* COUNTY FILTER */
+/* COUNTY SELECTION */
 
 function selectCounty(county) {
+
     selectedCounty = county;
-    currentLetter = null;
     renderHome();
+
 }
 
-/* CATEGORY FILTER */
+/* LETTER CATEGORY */
 
-function selectCategory(category) {
-    selectedCategory = category;
-    currentLetter = null;
-    renderHome();
-}
+function showCategory(title) {
 
-/* DISPLAY LETTERS */
+    currentCategory = title;
 
-function renderLetters() {
+    const entries = sampleLetters[title] || [];
 
-    const results = document.getElementById("letterResults");
+    const left = `
+        <div class="eyebrow">
+            The archive · ${selectedCounty}
+        </div>
 
-    if (!results) return;
+        <h2>${title}</h2>
 
-    const filteredLetters = letters.filter(letter => {
+        <div class="ornament">❧</div>
 
-        const countyMatches =
-            selectedCounty === "All counties" ||
-            letter.county === selectedCounty;
+        <p class="page-intro">
+            A collection of messages written to remind people
+            that they are seen, valued and welcome.
+        </p>
 
-        const categoryMatches =
-            selectedCategory === "all" ||
-            letter.category === selectedCategory;
+        <div class="empty-note">
+            ${entries.length
+                ? `${entries.length} example letters in this preview.`
+                : "New letters for this section will appear here as the archive grows."
+            }
+        </div>
 
-        return countyMatches && categoryMatches;
-    });
+        <button class="back-button" onclick="renderHome()">
+            ← Back to the county map
+        </button>
+    `;
 
-    if (filteredLetters.length === 0) {
+    const right = entries.length ? `
+        <div class="eyebrow">Turn the page</div>
 
-        results.innerHTML = `
-            <p>
-                There are no published letters in this selection yet.
-                This collection will continue to grow.
-            </p>
-        `;
+        <h2>Choose a letter</h2>
 
-        return;
-    }
+        <div class="letter-list">
 
-    results.innerHTML = filteredLetters.map((letter, index) => `
-        <div class="letter-card"
-            onclick="openLetter(${letters.indexOf(letter)})">
+            ${entries.map((letter, index) => `
+                <div class="letter-row">
 
-            <h3>${escapeHTML(letter.title)}</h3>
+                    <button onclick="readLetter(${index})">
 
-            <p class="letter-meta">
-                ${escapeHTML(letter.author)} ·
-                ${escapeHTML(letter.county)}
-            </p>
+                        <strong>${letter.title}</strong>
 
-            <span>Read letter →</span>
+                        <small>
+                            ${letter.from} · Read letter ›
+                        </small>
+
+                    </button>
+
+                </div>
+            `).join("")}
 
         </div>
-    `).join("");
+
+        <p class="notice">
+            These preview letters are examples only.
+            Real contributions will be published only with
+            the writer's permission.
+        </p>
+
+    ` : `
+        <div class="eyebrow">A page waiting to be written</div>
+
+        <h2>Your words belong here</h2>
+
+        <p class="empty-note">
+            As people contribute to the archive,
+            their letters will find a home on these pages.
+        </p>
+    `;
+
+    setPages(left, right);
+
 }
 
-/* OPEN INDIVIDUAL LETTER */
+/* READ AN INDIVIDUAL LETTER */
 
-function openLetter(index) {
+function readLetter(index) {
 
-    const letter = letters[index];
+    const letter = (sampleLetters[currentCategory] || [])[index];
 
     if (!letter) return;
 
-    currentLetter = index;
+    const left = `
+        <div class="eyebrow">
+            ${selectedCounty} · From the archive
+        </div>
 
-    const left = document.getElementById("leftContent");
-    const right = document.getElementById("rightContent");
+        <h2>${letter.title}</h2>
 
-    left.innerHTML = `
-        <p class="letter-meta">
-            ${escapeHTML(letter.county)}, Ireland
+        <div class="ornament">❧</div>
+
+        <p class="page-intro">
+            ${letter.from}
         </p>
 
-        <h1>${escapeHTML(letter.title)}</h1>
+        <div class="letter-body">
+            ${letter.body}
+        </div>
 
-        <p>
-            ${escapeHTML(letter.body)}
-        </p>
+        <div class="letter-signoff">
+            ${letter.sign}
+        </div>
 
-        <p><em>With kindness,</em></p>
-
-        <p>${escapeHTML(letter.author)}</p>
-    `;
-
-    right.innerHTML = `
-        <h2>A little more kindness</h2>
-
-        <p>
-            Every letter in this archive is a reminder
-            that small acts of kindness can make a
-            meaningful difference.
-        </p>
-
-        <p>
-            Thank you for taking the time to read.
-        </p>
-
-        <button class="archive-button"
-            onclick="renderHome()">
-
-            Back to letters
-
+        <button class="back-button"
+                onclick="showCategory('${currentCategory}')">
+            ← Back to letters
         </button>
     `;
+
+    const right = `
+        <div class="eyebrow">A message for you</div>
+
+        <h2>Take these words with you</h2>
+
+        <p class="empty-note">
+            Every letter is a small act of connection.
+            Thank you for taking the time to read this one.
+        </p>
+
+        <div class="ornament">✧ ☘ ✧</div>
+
+        <button class="back-button"
+                onclick="showCategory('${currentCategory}')">
+            Read another letter
+        </button>
+    `;
+
+    setPages(left, right);
+
 }
 
-/* SAFE TEXT DISPLAY */
+/* ABOUT THE PROJECT */
 
-function escapeHTML(value) {
-    return String(value).replace(/[&<>"']/g, character => ({
-        "&": "&amp;",
-        "<": "&lt;",
-        ">": "&gt;",
-        '"': "&quot;",
-        "'": "&#039;"
-    })[character]);
+function showAbout() {
+
+    const left = `
+        <div class="eyebrow">The story behind the pages</div>
+
+        <h2>About this archive</h2>
+
+        <div class="ornament">❧</div>
+
+        <p class="letter-body">
+            The Fáilte Letters is a growing collection
+            of letters and messages from people connected
+            to Ireland.
+        </p>
+
+        <p class="letter-body">
+            It is a place for people to offer kindness,
+            share encouragement and remind others that
+            they deserve to feel welcome.
+        </p>
+    `;
+
+    const right = `
+        <div class="eyebrow">A living collection</div>
+
+        <h2>Every voice matters</h2>
+
+        <p class="letter-body">
+            The archive will grow through contributions
+            from individuals, schools, families and communities.
+        </p>
+
+        <p class="letter-body">
+            Our hope is to preserve these words and share
+            them with anyone who might need to read them.
+        </p>
+
+        <div class="ornament">✧</div>
+
+        <p class="page-intro">
+            Letters from Ireland · Litreacha ó Éirinn
+        </p>
+
+        <button class="back-button" onclick="renderHome()">
+            ← Return to the book
+        </button>
+    `;
+
+    setPages(left, right);
+
 }
 
-/* STARTUP */
+/* RETURN TO ARCHIVE HOME */
 
-document.addEventListener("DOMContentLoaded", () => {
+function showHome() {
+    renderHome();
+}
 
-    const cover = document.getElementById("cover");
+/* MAKE FUNCTIONS AVAILABLE TO HTML BUTTONS */
 
-    if (cover) {
-        cover.addEventListener("keydown", event => {
-            if (event.key === "Enter" || event.key === " ") {
-                event.preventDefault();
-                openBook();
-            }
-        });
-    }
+window.openBook = openBook;
+window.renderHome = renderHome;
+window.selectCounty = selectCounty;
+window.showCategory = showCategory;
+window.readLetter = readLetter;
+window.showAbout = showAbout;
+window.showHome = showHome;
 
-});
+/* END OF ARCHIVE */
