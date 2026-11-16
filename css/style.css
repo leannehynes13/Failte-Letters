@@ -481,4 +481,67 @@ body {
         transition: none !important;
         animation: none !important;
     }
+
+    
+/* =====================================
+   FULL-SCREEN OPEN BOOK BACKGROUND
+   ===================================== */
+
+.inside.archive-open {
+    position: fixed !important;
+    inset: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    height: 100svh !important;
+    max-height: none !important;
+    z-index: 9999 !important;
+    background: #21170f;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.open-book-image {
+    position: absolute !important;
+    inset: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    max-width: none !important;
+    max-height: none !important;
+    object-fit: cover !important;
+    object-position: center center !important;
+    display: block !important;
+    z-index: 0 !important;
+}
+
+.archive-content {
+    position: absolute;
+    z-index: 2;
+}
+
+/* Mobile full-screen background */
+@media (max-width: 720px) {
+    .inside.archive-open {
+        position: fixed !important;
+        inset: 0 !important;
+        width: 100vw !important;
+        height: 100vh !important;
+        height: 100svh !important;
+    }
+
+    .open-book-image {
+        position: fixed !important;
+        inset: 0 !important;
+        width: 100vw !important;
+        height: 100vh !important;
+        height: 100svh !important;
+        object-fit: cover !important;
+    }
+
+    .archive-content {
+        position: relative;
+        width: 100%;
+        height: auto;
+    }
+}
+
 }
