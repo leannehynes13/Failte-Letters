@@ -8,32 +8,11 @@
 <title>The Fáilte Letters — Letters from Ireland</title>
 
 <style>
-.desk-scene {
-    min-height: 100vh;
-    width: 100%;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 30px 3vw;
-    background-color: #21180f;
-    background-image: url("images/desk-background.png");
-    background-position: center center;
-    background-size: cover;
-    background-repeat: no-repeat;
-    transition: background .5s ease;
-}
-
-/* When the book opens, remove the landing-page image */
-.desk-scene.book-open {
-    background-image: none;
-    background-color: #302317;
-    padding: 35px 3vw;
-}
-
-.desk-scene.book-open::before {
-    display: none;
-}
+:root {
+    --ink: #493821;
+    --gold: #b8955d;
+    --paper: #f4ead6;
+    --green: #687452;
 }
 
 * {
@@ -48,7 +27,7 @@ body {
     margin: 0;
     min-height: 100vh;
     font-family: Georgia, "Times New Roman", serif;
-    background: var(--wood);
+    background: #21180f;
     color: var(--ink);
     overflow-x: hidden;
 }
@@ -57,7 +36,9 @@ button {
     font: inherit;
 }
 
-/* LANDING PAGE */
+/* =====================================
+   LANDING PAGE
+===================================== */
 
 .desk-scene {
     min-height: 100vh;
@@ -83,9 +64,25 @@ button {
     background: radial-gradient(
         ellipse at center,
         transparent 45%,
-        rgba(12, 7, 3, .25) 100%
+        rgba(12,7,3,.25) 100%
     );
 }
+
+/* The desk disappears when the book opens */
+
+.desk-scene.book-open {
+    background-image: none;
+    background-color: #302317;
+    padding: 35px 3vw;
+}
+
+.desk-scene.book-open::before {
+    display: none;
+}
+
+/* =====================================
+   BOOK POSITIONING
+===================================== */
 
 .stage {
     width: min(1100px, 100%);
@@ -97,13 +94,24 @@ button {
     z-index: 2;
 }
 
+.desk-scene.book-open .stage {
+    width: min(1250px, 100%);
+    min-height: auto;
+}
+
 .book-shell {
     position: relative;
     width: 100%;
     max-width: 1040px;
 }
 
-/* INVISIBLE CLICKABLE AREA OVER THE BOOK IN THE ORIGINAL IMAGE */
+.desk-scene.book-open .book-shell {
+    max-width: 1200px;
+}
+
+/* =====================================
+   CLICKABLE CLOSED BOOK
+===================================== */
 
 .cover {
     position: absolute;
@@ -137,19 +145,19 @@ button {
     bottom: 5%;
     transform: translateX(-50%);
     color: #f1d18d;
-    font-size: clamp(13px, 1.8vw, 19px);
+    font-size: clamp(13px,1.8vw,19px);
     letter-spacing: 3px;
     white-space: nowrap;
     opacity: 0;
-    text-shadow: 0 0 10px #f4d28e, 0 0 24px #d7a54f;
+    text-shadow: 0 0 10px #f4d28e,0 0 24px #d7a54f;
     transition: opacity .3s ease;
     pointer-events: none;
 }
 
 .cover:hover::before,
 .cover:focus-visible::before {
-    border-color: rgba(239, 201, 125, .75);
-    box-shadow: 0 0 25px rgba(231, 184, 99, .35);
+    border-color: rgba(239,201,125,.75);
+    box-shadow: 0 0 25px rgba(231,184,99,.35);
 }
 
 .cover:hover::after,
@@ -167,15 +175,13 @@ button {
 }
 
 @keyframes sparkle {
-    from {
-        filter: brightness(.8);
-    }
-    to {
-        filter: brightness(1.5);
-    }
+    from { filter: brightness(.8); }
+    to { filter: brightness(1.5); }
 }
 
-/* OPEN BOOK */
+/* =====================================
+   OPEN BOOK
+===================================== */
 
 .inside {
     display: none;
@@ -194,17 +200,17 @@ button {
     box-shadow:
         0 25px 65px rgba(0,0,0,.55),
         inset 0 0 20px rgba(44,27,12,.55);
-    animation: bookAppear .7s ease;
 }
 
 .inside.archive-open {
     display: grid;
+    animation: bookAppear .7s ease;
 }
 
 @keyframes bookAppear {
     from {
         opacity: 0;
-        transform: scale(.92) translateY(20px);
+        transform: scale(.94) translateY(15px);
     }
     to {
         opacity: 1;
@@ -212,12 +218,21 @@ button {
     }
 }
 
+.desk-scene.book-open .inside {
+    width: 100%;
+    max-width: 1200px;
+}
+
+/* =====================================
+   BOOK PAGES
+===================================== */
+
 .page {
     min-width: 0;
     min-height: 660px;
     position: relative;
     overflow-y: auto;
-    padding: 42px clamp(20px, 3vw, 46px) 65px;
+    padding: 48px clamp(20px,3vw,46px) 65px;
     text-align: center;
     background:
         radial-gradient(
@@ -275,7 +290,7 @@ button {
 }
 
 .page h2 {
-    font-size: clamp(21px, 2.5vw, 29px);
+    font-size: clamp(21px,2.5vw,29px);
     font-weight: normal;
     letter-spacing: 1.5px;
     text-transform: uppercase;
@@ -299,6 +314,10 @@ button {
     margin: 12px 0 17px;
 }
 
+/* =====================================
+   MAP AND COUNTIES
+===================================== */
+
 .map-wrap {
     max-width: 280px;
     margin: 8px auto 12px;
@@ -318,11 +337,9 @@ button {
     margin: 4px 0 15px;
 }
 
-/* COUNTY SELECTOR */
-
 .county-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(4,1fr);
     gap: 5px;
     margin: 12px auto 0;
     max-width: 380px;
@@ -345,7 +362,9 @@ button {
     box-shadow: inset 0 0 0 1px #a98751;
 }
 
-/* CATEGORIES */
+/* =====================================
+   CATEGORY LABELS
+===================================== */
 
 .category-list {
     display: grid;
@@ -371,7 +390,8 @@ button {
     transition: .2s ease;
 }
 
-.category-card:hover {
+.category-card:hover,
+.category-card:focus-visible {
     background: #e9d9b8;
     border-color: #a98751;
     transform: translateY(-2px);
@@ -407,7 +427,9 @@ button {
     font-size: 19px;
 }
 
-/* LETTERS */
+/* =====================================
+   LETTERS
+===================================== */
 
 .letter-list {
     display: grid;
@@ -495,7 +517,9 @@ button {
     color: #493821;
 }
 
-/* BOOKMARK TABS AND CLOSE BUTTON */
+/* =====================================
+   BOOKMARK TABS
+===================================== */
 
 .bookmark-tabs {
     position: absolute;
@@ -522,13 +546,21 @@ button {
     background: #a27b4d;
 }
 
+.tab:hover {
+    filter: brightness(1.15);
+}
+
+/* =====================================
+   CLOSE BOOK BUTTON
+===================================== */
+
 .close-book {
     position: absolute;
     top: 16px;
     right: 18px;
     z-index: 8;
     border: 1px solid rgba(156,119,67,.55);
-    background: rgba(248,239,219,.92);
+    background: rgba(248,239,219,.95);
     color: #59452d;
     padding: 8px 12px;
     font-size: 11px;
@@ -540,13 +572,12 @@ button {
     background: #dfc99e;
 }
 
-.hidden {
-    display: none !important;
-}
-
-/* MOBILE */
+/* =====================================
+   MOBILE
+===================================== */
 
 @media (max-width: 720px) {
+
     .desk-scene {
         min-height: 100svh;
         padding: 15px 8px;
@@ -569,6 +600,15 @@ button {
         height: 70%;
     }
 
+    .desk-scene.book-open {
+        padding: 12px 7px;
+        align-items: flex-start;
+    }
+
+    .desk-scene.book-open .stage {
+        min-height: auto;
+    }
+
     .inside.archive-open {
         grid-template-columns: 1fr;
         gap: 3px;
@@ -577,7 +617,7 @@ button {
 
     .page {
         min-height: 530px;
-        padding: 32px 23px 55px;
+        padding: 55px 23px 55px;
     }
 
     .left-page {
@@ -603,7 +643,7 @@ button {
     }
 
     .county-grid {
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: repeat(4,1fr);
     }
 
     .close-book {
@@ -625,12 +665,12 @@ button {
 
 <body>
 
-<div class="desk-scene">
+<div class="desk-scene" id="deskScene">
 
     <main class="stage">
         <div class="book-shell">
 
-            <!-- THE OPEN BOOK -->
+            <!-- OPEN INTERACTIVE BOOK -->
 
             <div class="inside" id="inside" aria-live="polite">
 
@@ -655,7 +695,7 @@ button {
 
             </div>
 
-            <!-- CLICKABLE AREA OVER THE CLOSED BOOK IN THE DESK IMAGE -->
+            <!-- CLICKABLE AREA ON THE ORIGINAL CLOSED BOOK -->
 
             <button
                 class="cover"
@@ -672,18 +712,23 @@ button {
 
 <script>
 
-/* COUNTIES */
+/* =====================================
+   COUNTIES
+===================================== */
 
 const counties = [
-    "Antrim", "Armagh", "Carlow", "Cavan", "Clare", "Cork", "Derry", "Donegal",
-    "Down", "Dublin", "Fermanagh", "Galway", "Kerry", "Kildare", "Kilkenny",
-    "Laois", "Leitrim", "Limerick", "Longford", "Louth", "Mayo", "Meath",
-    "Monaghan", "Offaly", "Roscommon", "Sligo", "Tipperary", "Tyrone",
-    "Waterford", "Westmeath", "Wexford", "Wicklow"
+    "Antrim", "Armagh", "Carlow", "Cavan", "Clare", "Cork",
+    "Derry", "Donegal", "Down", "Dublin", "Fermanagh", "Galway",
+    "Kerry", "Kildare", "Kilkenny", "Laois", "Leitrim", "Limerick",
+    "Longford", "Louth", "Mayo", "Meath", "Monaghan", "Offaly",
+    "Roscommon", "Sligo", "Tipperary", "Tyrone", "Waterford",
+    "Westmeath", "Wexford", "Wicklow"
 ];
 
 
-/* LETTER CATEGORIES */
+/* =====================================
+   CATEGORIES
+===================================== */
 
 const categories = [
     {
@@ -709,9 +754,9 @@ const categories = [
 ];
 
 
-/* PREVIEW LETTERS
-   These are illustrative examples, not real submissions.
-*/
+/* =====================================
+   SAMPLE LETTERS
+===================================== */
 
 const sampleLetters = {
 
@@ -777,41 +822,71 @@ You are welcome at the table.`,
 };
 
 
-/* BOOK STATE */
+/* =====================================
+   BOOK STATE
+===================================== */
 
 let selectedCounty = "Mayo";
 let currentCategory = "";
 
 
-/* OPEN AND CLOSE THE BOOK */
+/* =====================================
+   OPEN AND CLOSE
+===================================== */
 
 function openBook() {
+
+    document.getElementById("deskScene").classList.add("book-open");
+
     document.getElementById("cover").classList.add("hidden");
+
     document.getElementById("inside").classList.add("archive-open");
+
     renderHome();
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
 }
 
 function closeBook() {
+
     document.getElementById("inside").classList.remove("archive-open");
+
     document.getElementById("cover").classList.remove("hidden");
+
+    document.getElementById("deskScene").classList.remove("book-open");
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
 }
 
 
-/* UPDATE THE TWO PAGES */
+/* =====================================
+   UPDATE BOOK PAGES
+===================================== */
 
 function setPages(left, right, leftNum = "1", rightNum = "2") {
+
     document.getElementById("leftContent").innerHTML = left;
+
     document.getElementById("rightContent").innerHTML = right;
+
     document.getElementById("leftFooter").textContent = leftNum;
+
     document.getElementById("rightFooter").textContent = rightNum;
 }
 
 
-/* ILLUSTRATIVE MAP
-   This is a decorative outline, not a geographically accurate county map.
-*/
+/* =====================================
+   DECORATIVE IRELAND MAP
+===================================== */
 
 function mapSVG() {
+
     return `
     <svg class="ireland-map" viewBox="0 0 300 330"
          role="img" aria-label="Illustrated outline map of Ireland">
@@ -855,13 +930,17 @@ function mapSVG() {
         </g>
 
         <circle cx="188" cy="181" r="4"
-                fill="#d9b66f" stroke="#fff1ce" stroke-width="1.5"/>
+                fill="#d9b66f"
+                stroke="#fff1ce"
+                stroke-width="1.5"/>
 
     </svg>`;
 }
 
 
-/* COUNTY HOME PAGE */
+/* =====================================
+   COUNTY HOME PAGE
+===================================== */
 
 function renderHome() {
 
@@ -869,6 +948,7 @@ function renderHome() {
 
     const left = `
         <div class="eyebrow">A collection of voices</div>
+
         <h2>Where in Ireland?</h2>
 
         <p class="page-intro">
@@ -936,15 +1016,21 @@ function renderHome() {
 }
 
 
-/* SELECT A COUNTY */
+/* =====================================
+   SELECT A COUNTY
+===================================== */
 
 function selectCounty(county) {
+
     selectedCounty = county;
+
     renderHome();
 }
 
 
-/* OPEN A LETTER CATEGORY */
+/* =====================================
+   OPEN A CATEGORY
+===================================== */
 
 function showCategory(title) {
 
@@ -981,11 +1067,11 @@ function showCategory(title) {
         <h2>Choose a letter</h2>
 
         <div class="letter-list">
-            ${entries.map((l, i) => `
+            ${entries.map((letter, index) => `
                 <div class="letter-row">
-                    <button onclick="readLetter(${i})">
-                        <strong>${l.title}</strong>
-                        <small>${l.from} · Read letter ›</small>
+                    <button onclick="readLetter(${index})">
+                        <strong>${letter.title}</strong>
+                        <small>${letter.from} · Read letter ›</small>
                     </button>
                 </div>
             `).join("")}
@@ -1010,7 +1096,9 @@ function showCategory(title) {
 }
 
 
-/* READ A LETTER */
+/* =====================================
+   READ A LETTER
+===================================== */
 
 function readLetter(index) {
 
@@ -1059,7 +1147,9 @@ function readLetter(index) {
 }
 
 
-/* ABOUT THE FÁILTE LETTERS */
+/* =====================================
+   ABOUT THE FÁILTE LETTERS
+===================================== */
 
 function showAbout() {
 
@@ -1108,7 +1198,9 @@ function showAbout() {
 }
 
 
-/* RETURN TO THE COUNTY MAP */
+/* =====================================
+   RETURN TO HOME
+===================================== */
 
 function showHome() {
     renderHome();
