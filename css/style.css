@@ -24,4 +24,35 @@
     .right-page .page-inner {
         transform: none;
     }
+
+/* =========================================
+   FINAL PAGE POSITION ADJUSTMENTS
+========================================= */
+
+/* Move left page content towards the centre */
+.left-page .page-inner {
+    position: relative !important;
+    left: 60px !important;
+    top: 0 !important;
+    transform: none !important;
+}
+
+/* Move right page content towards the centre
+   and further down */
+.right-page .page-inner {
+    position: relative !important;
+    left: -60px !important;
+    top: 65px !important;
+    transform: none !important;
+}
+
+/* Reset positioning on mobile */
+@media (max-width: 720px) {
+    .left-page .page-inner,
+    .right-page .page-inner {
+        left: 0 !important;
+        top: 0 !important;
+        transform: none !important;
+    }
+}
 }
