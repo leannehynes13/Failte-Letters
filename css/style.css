@@ -541,8 +541,6 @@ body {
         position: relative;
         width: 100%;
         height: auto;
-    }
-}
 
 /* KEEP ALL ARCHIVE CONTENT WITHIN THE LIGHT PARCHMENT */
 
@@ -601,6 +599,4 @@ body {
 .category-list {
     margin-top: 12px;
     gap: 7px;
-}
-
 }
