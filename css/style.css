@@ -23,9 +23,7 @@ body {
     background: #21170f;
 }
 
-/* =========================================
-   LANDING DESK
-========================================= */
+/* LANDING DESK */
 
 .desk-scene {
     position: relative;
@@ -51,9 +49,7 @@ body {
     z-index: 0;
 }
 
-/* =========================================
-   BOOK SHELL AND COVER
-========================================= */
+/* BOOK POSITION */
 
 .book-shell {
     position: absolute;
@@ -63,13 +59,17 @@ body {
     z-index: 1;
 }
 
+/* CLOSED BOOK CLICK AREA */
+
 .cover {
     position: absolute;
     z-index: 10;
+
     left: 24%;
     top: 4%;
     width: 53%;
     height: 78%;
+
     padding: 0;
     border: 0;
     background: transparent;
@@ -83,14 +83,17 @@ body {
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
+
     color: #f1d18d;
     font-size: clamp(15px, 2vw, 21px);
     letter-spacing: 3px;
     white-space: nowrap;
+
     opacity: 0;
     text-shadow:
         0 0 10px #f4d28e,
         0 0 24px #d7a54f;
+
     transition: opacity .3s ease;
     pointer-events: none;
 }
@@ -110,16 +113,16 @@ body {
     pointer-events: none;
 }
 
-/* =========================================
-   OPEN BOOK SCENE
-========================================= */
+/* FULL-SCREEN OPEN BOOK SCENE */
 
 .inside {
     position: absolute;
     inset: 0;
     z-index: 20;
+
     width: 100%;
     height: 100%;
+
     background: #21170f;
 
     visibility: hidden;
@@ -130,22 +133,12 @@ body {
 }
 
 .inside.archive-open {
-    position: fixed;
-    inset: 0;
-    width: 100vw;
-    height: 100vh;
-    height: 100svh;
-
     visibility: visible;
     opacity: 1;
     pointer-events: auto;
-
-    overflow: hidden;
 }
 
-/* =========================================
-   OPEN BOOK BACKGROUND IMAGE
-========================================= */
+/* OPEN BOOK BACKGROUND IMAGE */
 
 .open-book-image {
     position: absolute;
@@ -160,68 +153,45 @@ body {
     object-position: center center;
 }
 
-/* =========================================
-   CONTENT POSITIONING
-
-   The content is deliberately kept within
-   the lighter parchment area of the image.
-========================================= */
+/* CONTENT ON THE BOOK PAGES */
 
 .archive-content {
     position: absolute;
-    z-index: 2;
-
-    left: 4%;
-    top: 12%;
-    width: 92%;
-    height: 78%;
+    left: 8%;
+    top: 8%;
+    width: 84%;
+    height: 83%;
 
     display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    column-gap: 5%;
-}
+    grid-template-columns: 1fr 1fr;
+    gap: 3%;
 
-/* Individual pages */
+    z-index: 2;
+}
 
 .left-page,
 .right-page {
     position: relative;
     min-width: 0;
-    min-height: 0;
     height: 100%;
-
     overflow-y: auto;
-    overflow-x: hidden;
-
     text-align: center;
-    padding: 2% 4%;
-
-    scrollbar-width: none;
-}
-
-.left-page::-webkit-scrollbar,
-.right-page::-webkit-scrollbar {
-    display: none;
+    padding: 5% 6%;
 }
 
 .page-inner {
     position: relative;
     z-index: 2;
-    width: 100%;
-    max-width: 100%;
-    margin: 0 auto;
 }
 
-/* =========================================
-   TYPOGRAPHY
-========================================= */
+/* TYPOGRAPHY */
 
 .eyebrow {
     font-size: 10px;
     letter-spacing: 3px;
     text-transform: uppercase;
     color: #8b704c;
-    margin: 3px 0 8px;
+    margin: 4px 0 12px;
 }
 
 .page-inner h2 {
@@ -229,41 +199,36 @@ body {
     font-weight: normal;
     letter-spacing: 1px;
     text-transform: uppercase;
-    margin: 0 0 9px;
+    margin: 0 0 12px;
     color: var(--ink);
-    line-height: 1.2;
 }
 
 .page-intro {
     font-size: clamp(11px, 1.1vw, 14px);
-    line-height: 1.55;
+    line-height: 1.65;
     color: #786348;
-    margin: 0 auto 9px;
+    margin: 0 auto 14px;
     max-width: 330px;
 }
 
 .ornament {
     color: #a48656;
-    font-size: 17px;
+    font-size: 18px;
     letter-spacing: 7px;
-    margin: 6px 0;
+    margin: 10px 0;
 }
 
-/* =========================================
-   IRELAND MAP
-========================================= */
+/* MAP */
 
 .map-wrap {
-    max-width: 180px;
-    margin: 3px auto;
+    max-width: 220px;
+    margin: 5px auto;
 }
 
 .ireland-map {
-    display: block;
     width: 100%;
     height: auto;
-    max-height: 155px;
-    margin: 0 auto;
+    max-height: 210px;
     filter: drop-shadow(0 5px 3px rgba(67, 53, 30, .16));
 }
 
@@ -271,35 +236,25 @@ body {
     font-size: 11px;
     font-style: italic;
     color: #806b4d;
-    margin: 4px 0 7px;
+    margin: 5px 0 10px;
 }
 
-/* =========================================
-   COUNTY SELECTOR
-========================================= */
+/* COUNTY SELECTOR */
 
 .county-grid {
     display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns: repeat(4, 1fr);
     gap: 4px;
-
-    width: 100%;
-    max-width: 390px;
-
-    margin: 7px auto 0;
+    margin: 10px auto 0;
+    max-width: 360px;
 }
 
 .county-grid button {
-    min-width: 0;
-    padding: 5px 2px;
-
+    padding: 6px 2px;
     font-size: 10px;
-    line-height: 1.2;
-
     border: 1px solid rgba(157, 123, 75, .48);
-    background: rgba(248, 239, 219, .88);
+    background: rgba(248, 239, 219, .8);
     color: #59452d;
-
     cursor: pointer;
     font-family: inherit;
 }
@@ -310,36 +265,29 @@ body {
     border-color: #a98751;
 }
 
-/* =========================================
-   LETTER CATEGORIES
-========================================= */
+/* LETTER CATEGORIES */
 
 .category-list {
     display: grid;
-    gap: 7px;
-
-    width: 100%;
-    max-width: 430px;
-
-    margin: 12px auto 0;
+    gap: 8px;
+    margin: 16px auto 0;
+    max-width: 390px;
     text-align: left;
 }
 
 .category-card {
     width: 100%;
-
     display: grid;
-    grid-template-columns: 30px minmax(0, 1fr) 14px;
+    grid-template-columns: 30px 1fr 14px;
     gap: 8px;
     align-items: center;
 
     padding: 9px;
-
     text-align: left;
-    border: 1px solid rgba(157, 123, 75, .48);
-    background: rgba(248, 239, 219, .82);
-    color: #59452d;
 
+    border: 1px solid rgba(157, 123, 75, .48);
+    background: rgba(248, 239, 219, .75);
+    color: #59452d;
     cursor: pointer;
     font-family: inherit;
 }
@@ -358,7 +306,6 @@ body {
     display: block;
     font-weight: normal;
     font-size: 12px;
-    line-height: 1.3;
     margin-bottom: 3px;
 }
 
@@ -374,53 +321,44 @@ body {
     font-size: 18px;
 }
 
-/* =========================================
-   NOTICES
-========================================= */
-
 .notice {
     font-size: 10px;
-    line-height: 1.45;
+    line-height: 1.5;
     color: #8c7656;
-    margin: 10px auto;
+    margin: 12px auto;
     max-width: 320px;
 }
 
-/* =========================================
-   LETTER LIST
-========================================= */
+/* LETTERS */
 
 .letter-list {
     display: grid;
     gap: 8px;
-    margin: 12px auto;
+    margin: 15px auto;
 }
 
 .letter-row {
     padding: 10px;
     text-align: left;
-
-    background: rgba(255, 250, 237, .82);
+    background: rgba(255, 250, 237, .75);
     border: 1px solid rgba(157, 123, 75, .4);
 }
 
 .letter-row button {
-    width: 100%;
-    padding: 0;
-
     border: 0;
     background: none;
     color: inherit;
-
+    padding: 0;
     text-align: left;
     cursor: pointer;
+    width: 100%;
     font-family: inherit;
 }
 
 .letter-row strong {
-    display: block;
     font-size: 13px;
     font-weight: normal;
+    display: block;
     margin-bottom: 4px;
 }
 
@@ -429,16 +367,12 @@ body {
     color: #806b4d;
 }
 
-/* =========================================
-   INDIVIDUAL LETTER
-========================================= */
-
 .letter-body {
     font-size: 13px;
     line-height: 1.7;
     text-align: left;
     white-space: pre-line;
-    margin: 14px auto;
+    margin: 15px auto;
     color: #5b4932;
 }
 
@@ -454,7 +388,7 @@ body {
     line-height: 1.7;
     font-style: italic;
     color: #806b4d;
-    padding: 12px 8px;
+    padding: 15px 8px;
 }
 
 .back-button {
@@ -472,58 +406,9 @@ body {
     color: #493821;
 }
 
-/* =========================================
-   MEDIUM SCREENS
-========================================= */
-
-@media (min-width: 721px) and (max-height: 760px) {
-
-    .archive-content {
-        top: 10%;
-        height: 82%;
-    }
-
-    .left-page,
-    .right-page {
-        padding-top: 1%;
-    }
-
-    .map-wrap {
-        max-width: 150px;
-    }
-
-    .ireland-map {
-        max-height: 125px;
-    }
-
-    .county-grid {
-        gap: 3px;
-    }
-
-    .county-grid button {
-        padding: 4px 2px;
-        font-size: 9px;
-    }
-
-    .category-list {
-        margin-top: 8px;
-        gap: 6px;
-    }
-
-    .category-card {
-        padding: 7px;
-    }
-}
-
-/* =========================================
-   MOBILE
-========================================= */
+/* MOBILE */
 
 @media (max-width: 720px) {
-
-    .desk-scene {
-        min-height: 100svh;
-    }
 
     .cover {
         left: 20%;
@@ -532,152 +417,131 @@ body {
         height: 70%;
     }
 
-    .inside.archive-open {
-        position: fixed;
-        inset: 0;
-
-        width: 100vw;
-        height: 100vh;
-        height: 100svh;
-
-        overflow-x: hidden;
+    .inside {
+        width: 100%;
+        height: 100%;
+        max-height: none;
         overflow-y: auto;
+        overflow-x: hidden;
     }
 
     .open-book-image {
+        display: block;
         position: fixed;
         inset: 0;
-
-        width: 100vw;
-        height: 100vh;
-        height: 100svh;
-
+        width: 100%;
+        height: 100%;
         object-fit: cover;
         object-position: center center;
     }
 
     .archive-content {
         position: relative;
-
         left: auto;
         top: auto;
-
         width: 100%;
         height: auto;
 
         display: grid;
-        grid-template-columns: minmax(0, 1fr);
-        gap: 14px;
+        grid-template-columns: 1fr;
+        gap: 12px;
 
-        padding: 22px 12px 30px;
+        padding: 18px 12px;
     }
 
     .left-page,
     .right-page {
-        min-width: 0;
-        min-height: 0;
+        min-height: 440px;
         height: auto;
+        padding: 25px 18px;
 
-        overflow: visible;
-
-        padding: 24px 16px;
-
-        background: rgba(243, 231, 205, .92);
+        background: rgba(243, 231, 205, .90);
         border: 1px solid #c7ad82;
     }
 
-    .eyebrow {
-        font-size: 9px;
-        margin-bottom: 8px;
-    }
-
-    .page-inner h2 {
-        font-size: 21px;
-    }
-
-    .page-intro {
-        font-size: 13px;
-    }
-
     .map-wrap {
-        max-width: 165px;
-    }
-
-    .ireland-map {
-        max-height: 150px;
+        max-width: 190px;
     }
 
     .county-grid {
-        grid-template-columns: repeat(4, minmax(0, 1fr));
-        max-width: 420px;
-        gap: 4px;
-    }
-
-    .county-grid button {
-        padding: 7px 2px;
-        font-size: 10px;
-    }
-
-    .category-list {
-        margin-top: 12px;
-        gap: 8px;
+        grid-template-columns: repeat(4, 1fr);
     }
 
     .category-card {
         padding: 10px;
     }
-
-    .category-card strong {
-        font-size: 13px;
-    }
-
-    .category-card small {
-        font-size: 11px;
-    }
 }
 
-/* =========================================
-   SMALL MOBILE SCREENS
-========================================= */
-
-@media (max-width: 380px) {
-
-    .archive-content {
-        padding-left: 8px;
-        padding-right: 8px;
-    }
-
-    .left-page,
-    .right-page {
-        padding: 20px 10px;
-    }
-
-    .county-grid {
-        gap: 3px;
-    }
-
-    .county-grid button {
-        font-size: 9px;
-        padding: 6px 1px;
-    }
-
-    .category-card {
-        grid-template-columns: 25px minmax(0, 1fr) 12px;
-        gap: 6px;
-        padding: 8px 6px;
-    }
-}
-
-/* =========================================
-   REDUCED MOTION
-========================================= */
+/* REDUCED MOTION */
 
 @media (prefers-reduced-motion: reduce) {
-
     *,
     *::before,
     *::after {
         transition: none !important;
         animation: none !important;
     }
+
+    
+/* =====================================
+   FULL-SCREEN OPEN BOOK BACKGROUND
+   ===================================== */
+
+.inside.archive-open {
+    position: fixed !important;
+    inset: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    height: 100svh !important;
+    max-height: none !important;
+    z-index: 9999 !important;
+    background: #21170f;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.open-book-image {
+    position: absolute !important;
+    inset: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    max-width: none !important;
+    max-height: none !important;
+    object-fit: cover !important;
+    object-position: center center !important;
+    display: block !important;
+    z-index: 0 !important;
+}
+
+.archive-content {
+    position: absolute;
+    z-index: 2;
+}
+
+/* Mobile full-screen background */
+@media (max-width: 720px) {
+    .inside.archive-open {
+        position: fixed !important;
+        inset: 0 !important;
+        width: 100vw !important;
+        height: 100vh !important;
+        height: 100svh !important;
+    }
+
+    .open-book-image {
+        position: fixed !important;
+        inset: 0 !important;
+        width: 100vw !important;
+        height: 100vh !important;
+        height: 100svh !important;
+        object-fit: cover !important;
+    }
+
+    .archive-content {
+        position: relative;
+        width: 100%;
+        height: auto;
+    }
+}
+
 }
