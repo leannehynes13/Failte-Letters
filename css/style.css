@@ -544,4 +544,63 @@ body {
     }
 }
 
+/* KEEP ALL ARCHIVE CONTENT WITHIN THE LIGHT PARCHMENT */
+
+.archive-content {
+    left: 5%;
+    top: 12%;
+    width: 90%;
+    height: 76%;
+    gap: 5%;
+}
+
+.left-page,
+.right-page {
+    padding: 2% 5%;
+}
+
+/* Make the Ireland map slightly smaller */
+.map-wrap {
+    max-width: 190px;
+    margin: 3px auto;
+}
+
+.ireland-map {
+    max-height: 170px;
+}
+
+/* Make the county selector more compact */
+.county-grid {
+    gap: 3px;
+    margin-top: 7px;
+}
+
+.county-grid button {
+    padding: 4px 2px;
+    font-size: 9px;
+}
+
+/* Tighten spacing around the headings */
+.eyebrow {
+    margin: 2px 0 8px;
+}
+
+.page-inner h2 {
+    margin-bottom: 8px;
+}
+
+.page-intro {
+    margin-bottom: 9px;
+}
+
+.ornament {
+    margin: 6px 0;
+}
+
+/* Keep category cards comfortably inside the right page */
+.category-list {
+    margin-top: 12px;
+    gap: 7px;
+}
+
 }
