@@ -175,7 +175,9 @@ body {
 
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    column-gap: 2%;
+
+    /* Bring the two content areas closer together */
+    column-gap: 0%;
 }
 
 /* Individual pages */
@@ -199,6 +201,12 @@ body {
 .left-page::-webkit-scrollbar,
 .right-page::-webkit-scrollbar {
     display: none;
+}
+
+/* Move only the right-hand page content down */
+
+.right-page {
+    padding-top: 5%;
 }
 
 .page-inner {
@@ -480,9 +488,12 @@ body {
         height: 78%;
     }
 
-    .left-page,
-    .right-page {
+    .left-page {
         padding-top: 1%;
+    }
+
+    .right-page {
+        padding-top: 4%;
     }
 
     .map-wrap {
@@ -581,6 +592,11 @@ body {
 
         background: rgba(243, 231, 205, .92);
         border: 1px solid #c7ad82;
+    }
+
+    /* Keep the mobile pages aligned */
+    .right-page {
+        padding-top: 24px;
     }
 
     .eyebrow {
